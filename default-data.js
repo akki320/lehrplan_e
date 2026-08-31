@@ -2,13 +2,13 @@ window.DEFAULT_DATA = {
   "meta": {
     "schoolName": "Gesamtschule an der Erft",
     "fach": "Englisch",
-    "schulform": "Gesamtschule – Sekundarstufe I",
-    "stand": "September 2024",
+    "schulform": "Gesamtschule",
+    "stand": "26/27",
     "vorsitz": "Sandra Marx",
     "stellvertretung": "Yannic Ahlemann",
     "materialpflege": "",
     "adminPasswordHash": "12ff727b9e009d1b2eeb6c672417a33658f0ff54a98b31ab5d6d1c4f204ab192",
-    "updatedAt": "2026-08-31T19:16:42.282Z"
+    "updatedAt": "2026-08-31T19:17:36.567Z"
   },
   "general": [
     {
