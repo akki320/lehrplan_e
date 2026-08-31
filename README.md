@@ -13,11 +13,10 @@ schulinternen Lehrpläne übersichtlich darzustellen und zentral zu pflegen.
   (Passwortschutz), inkl. Anlegen/Löschen/Verschieben von Jahrgangsstufen,
   Unterrichtsvorhaben und allgemeinen Informationsblöcken.
 
-Die mitgelieferten Beispielinhalte stammen aus der offiziellen
-Muster-Vorlage des Schulministeriums NRW für einen schulinternen Lehrplan
-Englisch (Gymnasium G9, Fassung 31.01.2020, fiktives „Schiller-Gymnasium“)
-und dienen nur als Startpunkt. Sie sollten im geschützten Bereich durch die
-eigenen Inhalte der Fachkonferenz ersetzt werden.
+Die hinterlegten Inhalte sind der schulinterne Lehrplan Englisch Sek. I der
+Gesamtschule an der Erft (Stand September 2024). Sie werden über den
+geschützten Bereich gepflegt und aktualisiert (siehe „Veröffentlichen“
+unten) – der Lehrplan Sek. II folgt als Ergänzung.
 
 ## Nutzung
 
