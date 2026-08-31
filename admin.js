@@ -569,7 +569,10 @@
     if (newAlertEl) newAlertEl.innerHTML = '<div class="alert alert-success">Einstellungen gespeichert.</div>';
   }
 
+  let publishInFlight = false;
+
   async function doPublishGithub() {
+    if (publishInFlight) return; // gegen Doppelklicks/sha-Konflikte
     const statusEl = document.getElementById('publish-status');
     const cfg = Store.loadGithubConfig();
     if (!cfg || !cfg.token) {
@@ -580,6 +583,9 @@
         'unter „GitHub-Direktveröffentlichung einrichten“ Owner, Repository und Token hinterlegen.</div>';
       return;
     }
+    const btn = document.getElementById('btn-publish-github');
+    publishInFlight = true;
+    if (btn) btn.disabled = true;
     statusEl.innerHTML = '<div class="alert">Veröffentliche …</div>';
     try {
       const result = await Store.publishToGithub(state, cfg);
@@ -592,6 +598,9 @@
       statusEl.innerHTML = `<div class="alert alert-error">Veröffentlichen fehlgeschlagen: ${esc(
         e.message
       )}</div>`;
+    } finally {
+      publishInFlight = false;
+      if (btn) btn.disabled = false;
     }
   }
 

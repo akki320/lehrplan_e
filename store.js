@@ -219,8 +219,14 @@
       }
       if (resp.status === 403) {
         throw new Error(
-          'Zugriff verweigert (403). Das Token braucht die Berechtigung "Contents: Read and write" ' +
-            'für dieses Repository.'
+          'Zugriff verweigert (403). Bei einem fine-grained Token muss "Contents: Read and write" für ' +
+            'dieses Repository gesetzt sein; bei einem klassischen Token muss der Scope "repo" angehakt sein.'
+        );
+      }
+      if (resp.status === 409) {
+        throw new Error(
+          'Die Datei wurde zwischenzeitlich geändert (z. B. durch einen weiteren Klick oder eine andere ' +
+            'Veröffentlichung). Bitte einfach erneut auf „Direkt veröffentlichen" klicken.'
         );
       }
       throw new Error('GitHub-API-Fehler: ' + msg);
