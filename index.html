@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Schulinterner Lehrplan Englisch</title>
+<meta name="description" content="Übersicht über die schulinternen Lehrpläne der Fachkonferenz Englisch – allgemeine Informationen und Unterrichtsvorhaben je Jahrgangsstufe." />
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+
+<header class="page-header">
+  <div class="page-header__inner">
+    <p class="eyebrow">Fachkonferenz Englisch</p>
+    <h1 id="school-title">Schulinterner Lehrplan Englisch</h1>
+    <p class="subtitle" id="school-subtitle">Gymnasium – Sekundarstufe I</p>
+    <dl class="header-meta" id="header-meta"></dl>
+    <p class="header-admin-link">
+      <a href="admin.html">🔒 Geschützter Bereich (Bearbeiten)</a>
+    </p>
+  </div>
+</header>
+
+<main id="main-content">
+  <p class="intro-note">
+    Diese Seite dokumentiert die von der Fachkonferenz Englisch getroffenen
+    Verabredungen zum Unterricht. Sie kann von Lehrpersonen, Lernenden und
+    Erziehungsberechtigten eingesehen werden. Änderungen an den Inhalten
+    nimmt die Fachkonferenz im geschützten Bereich vor.
+  </p>
+
+  <section aria-labelledby="general-heading">
+    <div class="section-heading">
+      <h2 id="general-heading">Allgemeine Informationen</h2>
+    </div>
+    <div id="general-list"></div>
+  </section>
+
+  <section aria-labelledby="grades-heading">
+    <div class="section-heading">
+      <h2 id="grades-heading">Schulinterner Lehrplan nach Jahrgangsstufen</h2>
+      <span class="hint" id="grades-count-hint"></span>
+    </div>
+    <div class="toolbar">
+      <input type="search" id="unit-search" placeholder="Unterrichtsvorhaben durchsuchen (Titel, Kompetenzen, Stichworte) …" aria-label="Unterrichtsvorhaben durchsuchen" />
+      <button class="btn btn-sm" id="expand-all">Alle aufklappen</button>
+      <button class="btn btn-sm" id="collapse-all">Alle einklappen</button>
+      <button class="btn btn-sm" id="print-page">🖨️ Drucken</button>
+    </div>
+    <div id="grades-list"></div>
+  </section>
+</main>
+
+<footer class="page-footer">
+  <p>
+    Stand der Inhalte:
+    <span id="footer-stand"></span> ·
+    <a href="admin.html">Geschützter Bereich für die Fachkonferenz</a>
+  </p>
+</footer>
+
+<script src="default-data.js"></script>
+<script src="store.js"></script>
+<script src="markdown.js"></script>
+<script src="public.js"></script>
+</body>
+</html>
