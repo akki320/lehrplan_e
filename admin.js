@@ -194,12 +194,59 @@
       <div class="card-head"><h3>Veröffentlichen</h3></div>
       <p class="field-hint" style="font-size:.88rem;">
         Änderungen werden zunächst nur lokal in diesem Browser gespeichert.
-        Damit sie auf der öffentlichen Seite für alle sichtbar werden, oben
-        rechts auf <strong>„Daten exportieren“</strong> klicken. Das lädt eine
-        Datei <code>default-data.js</code> herunter, die im Projekt die
-        gleichnamige Datei ersetzt (siehe README.md, Abschnitt
-        „Veröffentlichen“) und dann committet/hochgeladen wird.
+        Damit sie auf der öffentlichen Seite für alle sichtbar werden, gibt
+        es zwei Wege: oben rechts auf <strong>„🚀 Direkt veröffentlichen“</strong>
+        klicken (siehe Einrichtung unten) – oder auf
+        <strong>„⬇️ Daten exportieren“</strong> klicken und die
+        heruntergeladene Datei <code>default-data.js</code> manuell im
+        Projekt ersetzen (Commit/Upload auf github.com).
       </p>
+    </div>
+    ${githubConfigCardHtml()}`;
+  }
+
+  function githubConfigCardHtml() {
+    const cfg = Store.loadGithubConfig() || {};
+    const hasToken = !!cfg.token;
+    return `
+    <div class="card">
+      <div class="card-head"><h3>GitHub-Direktveröffentlichung einrichten</h3></div>
+      <p class="field-hint" style="font-size:.88rem;">
+        Damit „🚀 Direkt veröffentlichen“ funktioniert, braucht diese Seite
+        einmalig Zugangsdaten zum GitHub-Repository. Das Token wird
+        <strong>nur in diesem Browser</strong> gespeichert und ausschließlich
+        an <code>api.github.com</code> gesendet.
+      </p>
+      <p class="field-hint" style="font-size:.88rem;">
+        Ein Token erstellt ihr unter
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">
+          github.com/settings/personal-access-tokens/new
+        </a> („Fine-grained token“) – Repository-Zugriff nur auf dieses eine
+        Repository beschränken, Berechtigung <strong>„Contents: Read and
+        write“</strong> setzen, eine Ablaufzeit wählen.
+      </p>
+      <form id="github-config-form">
+        <div class="field-row">
+          <div class="field"><label for="gh-owner">Owner (Benutzer/Organisation)</label>
+            <input type="text" id="gh-owner" placeholder="z. B. akki320" value="${esc(cfg.owner || 'akki320')}"></div>
+          <div class="field"><label for="gh-repo">Repository</label>
+            <input type="text" id="gh-repo" placeholder="z. B. lehrplan_e" value="${esc(cfg.repo || 'lehrplan_e')}"></div>
+          <div class="field"><label for="gh-branch">Branch</label>
+            <input type="text" id="gh-branch" placeholder="main" value="${esc(cfg.branch || 'main')}"></div>
+          <div class="field"><label for="gh-path">Dateipfad</label>
+            <input type="text" id="gh-path" placeholder="default-data.js" value="${esc(cfg.path || 'default-data.js')}"></div>
+        </div>
+        <div class="field">
+          <label for="gh-token">Zugangs-Token</label>
+          <input type="password" id="gh-token" autocomplete="off" placeholder="${
+            hasToken ? '•••••••••••••••••••• (bereits hinterlegt – leer lassen, um es zu behalten)' : 'ghp_… / github_pat_…'
+          }">
+          <p class="field-hint">${hasToken ? '✅ Ein Token ist aktuell hinterlegt.' : 'Noch kein Token hinterlegt.'}</p>
+        </div>
+        <div id="github-config-alert"></div>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+        ${hasToken ? '<button type="button" class="btn btn-danger" id="btn-github-clear">Token entfernen</button>' : ''}
+      </form>
     </div>`;
   }
 
@@ -498,6 +545,56 @@
     }
   }
 
+  function handleGithubConfigSave() {
+    const alertEl = document.getElementById('github-config-alert');
+    alertEl.innerHTML = '';
+    const owner = document.getElementById('gh-owner').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+    const branch = document.getElementById('gh-branch').value.trim() || 'main';
+    const path = document.getElementById('gh-path').value.trim() || 'default-data.js';
+    const tokenInput = document.getElementById('gh-token').value.trim();
+    if (!owner || !repo) {
+      alertEl.innerHTML = '<div class="alert alert-error">Bitte Owner und Repository angeben.</div>';
+      return;
+    }
+    const existing = Store.loadGithubConfig() || {};
+    const token = tokenInput || existing.token || '';
+    if (!token) {
+      alertEl.innerHTML = '<div class="alert alert-error">Bitte ein Zugangs-Token angeben.</div>';
+      return;
+    }
+    Store.saveGithubConfig({ owner, repo, branch, path, token });
+    renderMain();
+    const newAlertEl = document.getElementById('github-config-alert');
+    if (newAlertEl) newAlertEl.innerHTML = '<div class="alert alert-success">Einstellungen gespeichert.</div>';
+  }
+
+  async function doPublishGithub() {
+    const statusEl = document.getElementById('publish-status');
+    const cfg = Store.loadGithubConfig();
+    if (!cfg || !cfg.token) {
+      currentView = { type: 'meta' };
+      renderAll();
+      statusEl.innerHTML =
+        '<div class="alert alert-error">GitHub-Veröffentlichung ist noch nicht eingerichtet – bitte unten ' +
+        'unter „GitHub-Direktveröffentlichung einrichten“ Owner, Repository und Token hinterlegen.</div>';
+      return;
+    }
+    statusEl.innerHTML = '<div class="alert">Veröffentliche …</div>';
+    try {
+      const result = await Store.publishToGithub(state, cfg);
+      const link = result.commitUrl
+        ? ` <a href="${esc(result.commitUrl)}" target="_blank" rel="noopener">Commit ansehen</a>`
+        : '';
+      statusEl.innerHTML =
+        `<div class="alert alert-success">✅ Veröffentlicht. Die Seite wird in Kürze neu gebaut.${link}</div>`;
+    } catch (e) {
+      statusEl.innerHTML = `<div class="alert alert-error">Veröffentlichen fehlgeschlagen: ${esc(
+        e.message
+      )}</div>`;
+    }
+  }
+
   async function handleImport(inputEl) {
     const file = inputEl.files[0];
     if (!file) return;
@@ -563,6 +660,17 @@
       doLogout();
       return;
     }
+    if (e.target.closest('#btn-publish-github')) {
+      doPublishGithub();
+      return;
+    }
+    if (e.target.closest('#btn-github-clear')) {
+      if (confirm('Hinterlegtes GitHub-Token aus diesem Browser entfernen?')) {
+        Store.clearGithubConfig();
+        renderAll();
+      }
+      return;
+    }
     const navBtn = e.target.closest('#admin-nav button[data-nav]');
     if (navBtn) {
       currentView = parseViewKey(navBtn.dataset.nav);
@@ -599,6 +707,9 @@
     } else if (e.target.id === 'password-form') {
       e.preventDefault();
       handlePasswordChange();
+    } else if (e.target.id === 'github-config-form') {
+      e.preventDefault();
+      handleGithubConfigSave();
     }
   });
 

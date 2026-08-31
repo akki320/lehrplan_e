@@ -63,22 +63,47 @@ damit beim Bearbeiten nichts verloren geht.
 
 ## Veröffentlichen
 
-Diese Seite läuft komplett ohne Server/Datenbank (nur HTML/JS, z. B. über
-GitHub Pages). Damit Änderungen aus dem geschützten Bereich für **alle**
-Besucher:innen sichtbar werden, müssen sie einmal veröffentlicht werden:
+Diese Seite läuft komplett ohne eigenen Server/Datenbank (nur HTML/JS,
+gehostet über GitHub Pages). Damit Änderungen aus dem geschützten Bereich
+für **alle** Besucher:innen sichtbar werden, müssen sie einmal
+veröffentlicht werden – dafür gibt es zwei Wege:
 
-1. Im geschützten Bereich oben rechts auf **„Daten exportieren“** klicken.
-   Das lädt eine Datei `default-data.js` herunter.
+### Weg 1: Direkt veröffentlichen (empfohlen)
+
+Im geschützten Bereich unter „Allgemeine Angaben“ →
+„GitHub-Direktveröffentlichung einrichten“ einmalig hinterlegen:
+
+1. Ein GitHub-Zugangs-Token erstellen unter
+   [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
+   („Fine-grained token“, Zugriff nur auf dieses eine Repository,
+   Berechtigung **„Contents: Read and write“**, mit Ablaufdatum).
+2. Owner, Repository, Branch (`main`), Dateipfad (`default-data.js`) und
+   das Token im Formular eintragen und speichern.
+
+Danach reicht oben rechts ein Klick auf **„🚀 Direkt veröffentlichen“** –
+die Seite committet die aktualisierten Inhalte automatisch per
+GitHub-API, GitHub Pages baut die Seite danach selbstständig neu.
+
+Das Token wird ausschließlich lokal in diesem Browser gespeichert
+(`localStorage`) und nur an `api.github.com` gesendet – niemals sonst
+irgendwohin. Da es Schreibzugriff auf das Repository gewährt, sollte es
+nur auf vertrauenswürdigen Geräten hinterlegt werden; über „Token
+entfernen“ lässt es sich jederzeit wieder löschen.
+
+### Weg 2: Manueller Export
+
+1. Im geschützten Bereich oben rechts auf **„⬇️ Daten exportieren“**
+   klicken. Das lädt eine Datei `default-data.js` herunter.
 2. Diese Datei die gleichnamige Datei im Repository-Hauptverzeichnis
    ersetzen lassen.
-3. Änderung committen und pushen (bzw. im GitHub-Webinterface hochladen).
-   Sobald die Seite (z. B. über GitHub Pages) neu ausgeliefert wird, sehen
-   alle Besucher:innen die aktualisierten Inhalte.
+3. Änderung committen und pushen (bzw. im GitHub-Webinterface hochladen
+   – kein Git/Terminal nötig).
 
-Über **„Daten importieren“** lässt sich umgekehrt eine zuvor exportierte
-`default-data.js`-Datei (oder reines JSON im gleichen Format) wieder in den
-Editor laden – praktisch, um z. B. nach einem `git pull` mit dem aktuellen
-Stand weiterzuarbeiten oder um zwischen Geräten zu wechseln.
+Über **„⬆️ Daten importieren“** lässt sich umgekehrt eine zuvor
+exportierte `default-data.js`-Datei (oder reines JSON im gleichen Format)
+wieder in den Editor laden – praktisch, um z. B. nach einem `git pull` mit
+dem aktuellen Stand weiterzuarbeiten oder um zwischen Geräten zu
+wechseln.
 
 **„Zurücksetzen“** verwirft alle lokal im Browser gespeicherten Änderungen
 und stellt die zuletzt veröffentlichten/mitgelieferten Beispieldaten wieder

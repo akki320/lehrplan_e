@@ -21,6 +21,7 @@
 
   const STORAGE_KEY = 'fkEnglisch.lehrplan.data.v1';
   const AUTH_KEY = 'fkEnglisch.lehrplan.auth.v1';
+  const GITHUB_CFG_KEY = 'fkEnglisch.lehrplan.githubPublish.v1';
 
   function deepClone(obj) {
     return JSON.parse(JSON.stringify(obj));
@@ -143,6 +144,108 @@
     else sessionStorage.removeItem(AUTH_KEY);
   }
 
+  // --------------------------------------------------------------------
+  // Direktes Veröffentlichen über die GitHub-API
+  //
+  // Alternative zum manuellen Export+Upload: Statt die Datei herunterzu-
+  // laden und von Hand im Repository zu ersetzen, kann der geschützte
+  // Bereich die aktualisierte default-data.js direkt per GitHub-REST-API
+  // committen. Dafür wird ein persönliches GitHub-Zugangs-Token benötigt
+  // (am besten ein "fine-grained" Token mit "Contents: Read and write"
+  // nur für dieses eine Repository). Das Token verlässt den Browser
+  // ausschließlich in Richtung api.github.com und wird nirgendwo sonst
+  // gespeichert oder übertragen.
+  // --------------------------------------------------------------------
+
+  function loadGithubConfig() {
+    try {
+      const raw = localStorage.getItem(GITHUB_CFG_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveGithubConfig(cfg) {
+    localStorage.setItem(GITHUB_CFG_KEY, JSON.stringify(cfg));
+  }
+
+  function clearGithubConfig() {
+    localStorage.removeItem(GITHUB_CFG_KEY);
+  }
+
+  // Robuste UTF-8 -> Base64 Kodierung (btoa allein kann keine Umlaute etc.)
+  function utf8ToBase64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+    }
+    return btoa(binary);
+  }
+
+  async function githubApiRequest(cfg, method, extraBody) {
+    const path = (cfg.path || 'default-data.js').replace(/^\/+/, '');
+    const url =
+      `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}` +
+      `/contents/${path.split('/').map(encodeURIComponent).join('/')}`;
+    const query = method === 'GET' ? `?ref=${encodeURIComponent(cfg.branch || 'main')}` : '';
+    const resp = await fetch(url + query, {
+      method,
+      headers: {
+        Authorization: `Bearer ${cfg.token}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json',
+      },
+      body: extraBody ? JSON.stringify(extraBody) : undefined,
+    });
+    let json = null;
+    try {
+      json = await resp.json();
+    } catch (e) {
+      // ignore, handled via resp.ok below
+    }
+    if (!resp.ok) {
+      const msg = (json && json.message) || `HTTP ${resp.status}`;
+      if (resp.status === 401) {
+        throw new Error('Token ungültig oder abgelaufen (401). Bitte ein neues Token hinterlegen.');
+      }
+      if (resp.status === 404) {
+        throw new Error(
+          'Repository/Datei nicht gefunden (404). Bitte Owner, Repository-Name, Branch und Pfad prüfen ' +
+            'sowie ob das Token Zugriff auf dieses Repository hat.'
+        );
+      }
+      if (resp.status === 403) {
+        throw new Error(
+          'Zugriff verweigert (403). Das Token braucht die Berechtigung "Contents: Read and write" ' +
+            'für dieses Repository.'
+        );
+      }
+      throw new Error('GitHub-API-Fehler: ' + msg);
+    }
+    return json;
+  }
+
+  async function publishToGithub(data, cfg) {
+    if (!cfg || !cfg.owner || !cfg.repo || !cfg.token) {
+      throw new Error('GitHub-Veröffentlichung ist noch nicht eingerichtet (Owner/Repository/Token fehlen).');
+    }
+    const current = await githubApiRequest(cfg, 'GET');
+    const sha = current && current.sha;
+    const content = toDefaultDataJs(data);
+    const result = await githubApiRequest(cfg, 'PUT', {
+      message: 'Lehrplan-Inhalte aktualisiert (über geschützten Bereich)',
+      content: utf8ToBase64(content),
+      sha,
+      branch: cfg.branch || 'main',
+    });
+    return {
+      commitUrl: result && result.commit && result.commit.html_url,
+    };
+  }
+
   function uid(prefix) {
     return (
       (prefix ? prefix + '-' : '') +
@@ -164,5 +267,9 @@
     setAuthed,
     deepClone,
     uid,
+    loadGithubConfig,
+    saveGithubConfig,
+    clearGithubConfig,
+    publishToGithub,
   };
 })(window);

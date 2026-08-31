@@ -702,6 +702,11 @@ details.accordion .accordion.nested > summary::before {
   color: var(--color-danger);
   border: 1px solid #f2c9c9;
 }
+.alert:not(.alert-error):not(.alert-success) {
+  background: #eef3f8;
+  color: var(--color-primary-dark);
+  border: 1px solid #d7e3ee;
+}
 .alert-success {
   background: var(--color-success-bg);
   color: var(--color-success);
