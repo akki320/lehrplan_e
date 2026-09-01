@@ -8,7 +8,7 @@ window.DEFAULT_DATA = {
     "stellvertretung": "Yannic Ahlemann",
     "materialpflege": "",
     "adminPasswordHash": "12ff727b9e009d1b2eeb6c672417a33658f0ff54a98b31ab5d6d1c4f204ab192",
-    "updatedAt": "2026-09-01T20:27:39.859Z"
+    "updatedAt": "2026-09-01T20:30:14.939Z"
   },
   "general": [
     {
@@ -330,7 +330,7 @@ window.DEFAULT_DATA = {
           "zeitbedarf": "ca. 16 U-Std.",
           "kompetenzen": "- Hör-/Hörsehverstehen: Interviews, (Hör-)Führungen und kurzen Filmclips die wesentlichen Informationen entnehmen\n- Leseverstehen: einfachen Sach- und Gebrauchstexten sowie einer kürzeren literarischen Kurzgeschichte wichtige Informationen entnehmen\n- Sprechen – zusammenhängendes Sprechen: eine kurze Rede mit Hilfe von vorgegebenen Redemitteln strukturiert vortragen\n- SLK: mit Hilfe der Skills-Boxen und der „Ich kann …“-Aussagen den eigenen Lernfortschritt einschätzen und gezielt weiterarbeiten.",
           "konkretisierungen": "- IKK: persönliche Lebensgestaltung: Alltag Jugendlicher in einem weiteren anglophonen Land; Teilhabe am gesellschaftlichen Leben: exemplarische Einblicke in Geschichte (Apartheid, Nelson Mandela) und Natur Südafrikas (Nationalparks), sprachliche Vielfalt\n- Grammatik: past perfect; Passiv (simple present, simple past)\n- TMK: Ausgangstexte: Zeitungsbericht, Interview, Radiosendung, literarische Kurzgeschichte, Sachtexte, stummer Filmclip; Zieltexte: Zeitschriftenartikel, Rede, Poster",
-          "absprachen": "- Wortschatz: South African society and social differences, landscapes and nature, Apartheid and history\n- Mögliche Umsetzung: gestufte Erarbeitung und Einüben der Rede mit Hilfe vorgegebener Redemittel (Checkpoint); Szene aus „The Playground“ mit Spielfiguren darstellen und/oder Poster zu Nelson Mandela erstellen\n- Medienbildung: Medienprodukte adressatengerecht planen, gestalten und präsentieren (MKR 4.1)",
+          "absprachen": "- Wortschatz: South African society and social differences, landscapes and nature, Apartheid and history\n- Mögliche Umsetzung: gestufte Erarbeitung und Einüben der Rede mit Hilfe vorgegebener Redemittel (Checkpoint); Szene aus „The Playground“ mit Spielfiguren darstellen und/oder Poster zu Nelson Mandela erstellen\n- Medienbildung: Medienprodukte adressatengerecht planen, gestalten und präsentieren > (MKR 4.1)",
           "leistungsueberpruefung": "- Schriftliche Klassenarbeit"
         }
       ]
