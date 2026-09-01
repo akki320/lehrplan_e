@@ -320,7 +320,8 @@
       </div>
       ${editorBlockHtml('Kompetenzschwerpunkte', `unit|${u.id}|kompetenzen`, u.kompetenzen)}
       ${editorBlockHtml('Fachliche Konkretisierungen', `unit|${u.id}|konkretisierungen`, u.konkretisierungen)}
-      ${editorBlockHtml('Hinweise &amp; Absprachen', `unit|${u.id}|absprachen`, u.absprachen)}
+      ${editorBlockHtml('Hinweise & Absprachen', `unit|${u.id}|absprachen`, u.absprachen)}
+      ${editorBlockHtml('Leistungsüberprüfung (optional)', `unit|${u.id}|leistungsueberpruefung`, u.leistungsueberpruefung)}
     </div>`;
   }
 
@@ -451,6 +452,7 @@
           kompetenzen: '',
           konkretisierungen: '',
           absprachen: '',
+          leistungsueberpruefung: '',
         };
         g.units.push(u);
         persistNow();

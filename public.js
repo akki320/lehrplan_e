@@ -60,10 +60,27 @@
   }
 
   function unitSearchText(unit) {
-    return [unit.code, unit.title, unit.zeitbedarf, unit.kompetenzen, unit.konkretisierungen, unit.absprachen]
+    return [
+      unit.code,
+      unit.title,
+      unit.zeitbedarf,
+      unit.kompetenzen,
+      unit.konkretisierungen,
+      unit.absprachen,
+      unit.leistungsueberpruefung,
+    ]
       .filter(Boolean)
       .join(' \n ')
       .toLowerCase();
+  }
+
+  function unitSectionHtml(title, content, optional) {
+    if (optional && !content) return '';
+    return `
+      <div class="unit-section">
+        <h4 class="unit-section-title">${escapeHtml(title)}</h4>
+        <div class="unit-section-body md">${mdToHtml(content) || '<p class="empty-state">–</p>'}</div>
+      </div>`;
   }
 
   function renderGrades() {
@@ -97,19 +114,11 @@
                   <span class="summary-meta">${unit.zeitbedarf ? `<span class="badge badge-accent">${escapeHtml(unit.zeitbedarf)}</span>` : ''}</span>
                 </summary>
                 <div class="accordion-body">
-                  <div class="unit-columns">
-                    <div class="unit-column">
-                      <h4>Kompetenzschwerpunkte</h4>
-                      <div class="md">${mdToHtml(unit.kompetenzen) || '<p class="empty-state">–</p>'}</div>
-                    </div>
-                    <div class="unit-column">
-                      <h4>Fachliche Konkretisierungen</h4>
-                      <div class="md">${mdToHtml(unit.konkretisierungen) || '<p class="empty-state">–</p>'}</div>
-                    </div>
-                    <div class="unit-column">
-                      <h4>Hinweise &amp; Absprachen</h4>
-                      <div class="md">${mdToHtml(unit.absprachen) || '<p class="empty-state">–</p>'}</div>
-                    </div>
+                  <div class="unit-sections">
+                    ${unitSectionHtml('Kompetenzschwerpunkte', unit.kompetenzen)}
+                    ${unitSectionHtml('Fachliche Konkretisierungen', unit.konkretisierungen)}
+                    ${unitSectionHtml('Hinweise & Absprachen', unit.absprachen)}
+                    ${unitSectionHtml('Leistungsüberprüfung', unit.leistungsueberpruefung, true)}
                   </div>
                 </div>
               </details>`
