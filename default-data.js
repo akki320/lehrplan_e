@@ -8,7 +8,7 @@ window.DEFAULT_DATA = {
     "stellvertretung": "Yannic Ahlemann",
     "materialpflege": "",
     "adminPasswordHash": "12ff727b9e009d1b2eeb6c672417a33658f0ff54a98b31ab5d6d1c4f204ab192",
-    "updatedAt": "2026-09-01T20:25:33.251Z"
+    "updatedAt": "2026-09-01T20:27:39.859Z"
   },
   "general": [
     {
