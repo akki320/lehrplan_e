@@ -8,7 +8,7 @@ window.DEFAULT_DATA = {
     "stellvertretung": "Yannic Ahlemann",
     "materialpflege": "",
     "adminPasswordHash": "12ff727b9e009d1b2eeb6c672417a33658f0ff54a98b31ab5d6d1c4f204ab192",
-    "updatedAt": "2026-08-31T19:20:06.374Z"
+    "updatedAt": "2026-09-01T20:25:33.251Z"
   },
   "general": [
     {
@@ -321,7 +321,7 @@ window.DEFAULT_DATA = {
           "kompetenzen": "- Leseverstehen: Sach- und Gebrauchstexten sowie einer literarischen Kurzgeschichte die Gesamtaussage, Hauptpunkte und wichtige Details entnehmen\n- Sprechen – zusammenhängendes Sprechen: eine Rede zu einem gesellschaftlich relevanten Thema strukturiert und adressatengerecht vortragen\n- Sprachmittlung: einem deutschen bzw. englischen Sachtext wesentliche Informationen situationsangemessen und adressatengerecht bündeln\n- SLK: den eigenen Lernfortschritt mit Hilfe der „Ich kann …“-Aussagen und der Skills-Boxen einschätzen, Anregungen aufnehmen und eigene Fehlerschwerpunkte gezielt bearbeiten.",
           "konkretisierungen": "- IKK: persönliche Lebensgestaltung: Alltag und Lebenswirklichkeiten Jugendlicher in einem weiteren anglophonen Land; Teilhabe am gesellschaftlichen Leben: historische und gesellschaftliche Entwicklung Südafrikas (Apartheid, deren Überwindung, Rolle Nelson Mandelas), soziale Ungleichheit (gated communities/townships), sprachliche und kulturelle Vielfalt der „Rainbow Nation“\n- Grammatik: past perfect; Passiv (simple present, simple past)\n- TMK: Ausgangstexte: Zeitungsbericht, E-Mails, Tagebucheintrag, Interview, Radiosendung, literarische Kurzgeschichte, Sachtexte, stummer Filmclip; Zieltexte: Zeitschriftenartikel, Rede, Poster, Zusammenfassung",
           "absprachen": "- Wortschatz: South African society and social differences, landscapes and nature, Apartheid and history\n- Mögliche Umsetzung: Verfassen und Vortragen einer Rede zu einem selbst gewählten Schulprojekt (Checkpoint); vertiefende Recherche und Postergestaltung zu Nelson Mandela bzw. Verfilmung einer Szene aus „The Playground“ mit Spielfiguren\n- Medienbildung: Medienprodukte adressatengerecht planen, gestalten und präsentieren (MKR 4.1)",
-          "leistungsueberpruefung": "- mündliche Kommunikationsprüfung"
+          "leistungsueberpruefung": "- Schriftliche Klassenarbeit"
         },
         {
           "id": "uv-9-2-2-g",
@@ -331,7 +331,7 @@ window.DEFAULT_DATA = {
           "kompetenzen": "- Hör-/Hörsehverstehen: Interviews, (Hör-)Führungen und kurzen Filmclips die wesentlichen Informationen entnehmen\n- Leseverstehen: einfachen Sach- und Gebrauchstexten sowie einer kürzeren literarischen Kurzgeschichte wichtige Informationen entnehmen\n- Sprechen – zusammenhängendes Sprechen: eine kurze Rede mit Hilfe von vorgegebenen Redemitteln strukturiert vortragen\n- SLK: mit Hilfe der Skills-Boxen und der „Ich kann …“-Aussagen den eigenen Lernfortschritt einschätzen und gezielt weiterarbeiten.",
           "konkretisierungen": "- IKK: persönliche Lebensgestaltung: Alltag Jugendlicher in einem weiteren anglophonen Land; Teilhabe am gesellschaftlichen Leben: exemplarische Einblicke in Geschichte (Apartheid, Nelson Mandela) und Natur Südafrikas (Nationalparks), sprachliche Vielfalt\n- Grammatik: past perfect; Passiv (simple present, simple past)\n- TMK: Ausgangstexte: Zeitungsbericht, Interview, Radiosendung, literarische Kurzgeschichte, Sachtexte, stummer Filmclip; Zieltexte: Zeitschriftenartikel, Rede, Poster",
           "absprachen": "- Wortschatz: South African society and social differences, landscapes and nature, Apartheid and history\n- Mögliche Umsetzung: gestufte Erarbeitung und Einüben der Rede mit Hilfe vorgegebener Redemittel (Checkpoint); Szene aus „The Playground“ mit Spielfiguren darstellen und/oder Poster zu Nelson Mandela erstellen\n- Medienbildung: Medienprodukte adressatengerecht planen, gestalten und präsentieren (MKR 4.1)",
-          "leistungsueberpruefung": "- mündliche Kommunikationsprüfung"
+          "leistungsueberpruefung": "- Schriftliche Klassenarbeit"
         }
       ]
     },
